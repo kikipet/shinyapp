@@ -1,0 +1,23 @@
+---
+title: "Fire Locator"
+author: Song Kim
+date: September 9, 2020
+output: ioslides_presentation
+---
+
+## Overview
+
+Locate wildfires in the United States and display their locations and rate of growth
+
+## Data
+
+Wildfire data from the National Interagency Fire Center ([raw](https://opendata.arcgis.com/datasets/68637d248eb24d0d853342cba02d4af7_0.csv))
+
+App searches for fires starting Jan. 1, 2020 (raw dataset starts in 2009, but data collection was spotty)
+
+```{r data, warning=FALSE, message=FALSE}
+library(dplyr)
+download.file("https://opendata.arcgis.com/datasets/68637d248eb24d0d853342cba02d4af7_0.csv", "fire.csv", "curl")
+fires <- read.csv("fire.csv", as.is=TRUE)
+fires <- as.data.frame(rename(fires, lat=Y, long=X))
+```
