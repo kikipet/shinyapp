@@ -3163,6 +3163,8 @@ fires &lt;- as.data.frame(rename(fires, lat=Y, long=X))</pre>
 
 <p>Graphs show distribution of fire size (by rate of growth) and trend in the number of fires discovered each day</p>
 
+<p>(Code below evaluated on next slide)</p>
+
 <pre class = 'prettyprint lang-r'>freqplot &lt;- qplot(fddate, data=fires, xlab=&quot;Date of Discovery&quot;, ylab=&quot;Count&quot;)
 acreplot &lt;- ggplot(data=fires, aes(fddate, DailyAcres)) + 
   geom_point() + scale_x_date(date_breaks=&quot;6 months&quot;, date_labels=&quot;%b %y&quot;) + 

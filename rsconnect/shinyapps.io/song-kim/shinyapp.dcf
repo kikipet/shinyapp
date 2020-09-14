@@ -1,0 +1,10 @@
+name: shinyapp
+title:
+username:
+account: song-kim
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2802261
+bundleId: 3625604
+url: https://song-kim.shinyapps.io/shinyapp/
+when: 1600046559.38222

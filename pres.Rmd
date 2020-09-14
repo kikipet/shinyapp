@@ -32,6 +32,7 @@ Map shows locations, times of discovery, and daily growth in acres for each fire
 
 Graphs show distribution of fire size (by rate of growth) and trend in the number of fires discovered each day
 
+(Code below evaluated on next slide)
 ```{r processing, echo=FALSE}
 fires <- fires[, c(2,1,3:dim(fires)[2])]
 fires$fddate <- as.Date(fires$FireDiscoveryDateTime, "%Y/%m/%d %H:%M:%S")
