@@ -1,0 +1,12 @@
+section .state-background {
+	background: #eae2b7;
+}
+
+h1, h2 {
+	color: #d62828;
+	font-style: bold;
+	font-family: 'Roboto Slab', serif;
+}
+
+p {
+	color: #003049;
