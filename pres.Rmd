@@ -15,9 +15,42 @@ Wildfire data from the National Interagency Fire Center ([raw](https://opendata.
 
 App searches for fires starting Jan. 1, 2020 (raw dataset starts in 2009, but data collection was spotty)
 
+Input date search range
+
 ```{r data, warning=FALSE, message=FALSE}
 library(dplyr)
+library(ggplot2)
+library(ggpubr)
 download.file("https://opendata.arcgis.com/datasets/68637d248eb24d0d853342cba02d4af7_0.csv", "fire.csv", "curl")
 fires <- read.csv("fire.csv", as.is=TRUE)
 fires <- as.data.frame(rename(fires, lat=Y, long=X))
+```
+
+## Functions
+
+Map shows locations, times of discovery, and daily growth in acres for each fire within the specified date range
+
+Graphs show distribution of fire size (by rate of growth) and trend in the number of fires discovered each day
+
+```{r processing, echo=FALSE}
+fires <- fires[, c(2,1,3:dim(fires)[2])]
+fires$fddate <- as.Date(fires$FireDiscoveryDateTime, "%Y/%m/%d %H:%M:%S")
+fires$DailyAcres[is.na(fires$DailyAcres)] <- 0 # set NA acre increases to 0
+fires$POOCity[is.na(fires$POOCity)] <- "" # set NA city names to blank
+fires$POOState[is.na(fires$POOState)] <- "" # set NA state names to blank
+```
+```{r graphs, warning=FALSE, message=FALSE}
+freqplot <- qplot(fddate, data=fires, xlab="Date of Discovery", ylab="Count")
+acreplot <- ggplot(data=fires, aes(fddate, DailyAcres)) + 
+  geom_point() + scale_x_date(date_breaks="6 months", date_labels="%b %y") + 
+  labs(x="Date of Discovery", y="Acres Daily")
+figure <- ggarrange(freqplot, acreplot + font("x.text", size = 10),
+                    ncol = 1, nrow = 2)
+```
+
+## Results
+
+There are not too many fires until about the beginning of September. Around September 6/Sept. 7, the daily fire discovery rate increased significantly.
+```{r show, echo=FALSE}
+figure
 ```
